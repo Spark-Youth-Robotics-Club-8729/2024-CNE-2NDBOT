@@ -69,8 +69,8 @@ public class DriveSubsystem extends SubsystemBase{
     }
 
     public DriveSubsystem() {
-        driveFrontLeft.addFollower(driveBackLeft);
-        driveFrontRight.addFollower(driveBackRight);
+        driveBackLeft.follow(driveFrontLeft);
+        driveBackRight.follow(driveFrontRight);
         driveFrontRight.setInverted(true);
 
         driveFrontLeft.setNeutralMode(NeutralMode.Brake);
