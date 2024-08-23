@@ -20,6 +20,8 @@ public final class Constants {
   public static class ControllerConstants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
+
+    public static final double DriveDeadband = 0.05;
   }
 
   public static class DriveConstants {
@@ -44,4 +46,19 @@ public final class Constants {
     public static final int TURN_CONTROLLER_POSITION_TOLERANCE = 1;
     public static final int TURN_CONTROLLER_VELOCITY_TOLERANCE = 10;
   }
+
+  public static class ArmConstants {
+    public static final int ARM_MOTOR = 6;
+    public static final double ARM_KP = 0.05;
+    public static final double ARM_KI = 0.0;
+    public static final double ARM_KD = 0.0;
+    public static final double ARM_DEGREE_TOLERANCE = 1.0;
+
+  }
+
+  public static final class IntakeConstants {
+    public static final int INTAKESPINMOTORCANID = 11; 
+    public static final double INTAKESPINMOTORSPEED = 0.1;
+  }
+
 }

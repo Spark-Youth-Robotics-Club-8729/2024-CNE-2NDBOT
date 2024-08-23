@@ -7,12 +7,20 @@ package frc.robot;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.IntakeSetSpin;
+import frc.robot.commands.ArmSetRotation;
+
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Joystick; //update xbox, ps4 in testing!
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -27,8 +35,14 @@ public class RobotContainer {
 
   //The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
-  private final Joystick driverController = new Joystick(ControllerConstants.OPERATOR_CONTROLLER_PORT);
+  // The driver's controller
+  CommandXboxController driverController = new CommandXboxController(ControllerConstants.DRIVER_CONTROLLER_PORT);
+  
+  // The operator's controller
+  CommandXboxController operatorController = new CommandXboxController(ControllerConstants.OPERATOR_CONTROLLER_PORT);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -37,16 +51,23 @@ public class RobotContainer {
     //Configure the trigger bindings
     configureBindings();
 
+    // Configure default commands
     driveSubsystem.setDefaultCommand(
-                                new ArcadeDriveCommand(driveSubsystem,
-                                                () -> -driverController.getRawAxis(DriveConstants.DRIVE_AXIS),
-                                                (() -> -driverController.getRawAxis(DriveConstants.TURN_AXIS)
-                                                                * DriveConstants.TURN_PROPORTION)));
+            new ArcadeDriveCommand(driveSubsystem,
+                            () -> -driverController.getRawAxis(DriveConstants.DRIVE_AXIS),
+                            (() -> -driverController.getRawAxis(DriveConstants.TURN_AXIS)
+                                            * DriveConstants.TURN_PROPORTION)));
+
   }
 
   public void configureBindings() {
 
-    
+    operatorController.b().whileTrue(new IntakeSetSpin(intakeSubsystem, -0.9));
+    operatorController.x().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.8));
+    operatorController.rightTrigger().whileTrue(new IntakeSetSpin(intakeSubsystem, -0.613));
+    operatorController.y().whileTrue(new ArmSetRotation(armSubsystem, 95.0));
+    operatorController.a().whileTrue(new ArmSetRotation(armSubsystem, 0.0));
+
   }
 
 }
