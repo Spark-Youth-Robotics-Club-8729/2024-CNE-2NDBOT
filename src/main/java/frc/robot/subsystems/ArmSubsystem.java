@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
@@ -14,7 +15,6 @@ import com.revrobotics.RelativeEncoder;
 public class ArmSubsystem extends SubsystemBase {
     private final TalonFX armMotor = new TalonFX(ArmConstants.ARM_MOTOR);
     private final PIDController armPidController = new PIDController(ArmConstants.ARM_KP, ArmConstants.ARM_KI, ArmConstants.ARM_KD);
-    private final RelativeEncoder armEncoder = armMotor.getSelectedSensorPosition();
     
     public ArmSubsystem() {
         armPidController.setTolerance(ArmConstants.ARM_DEGREE_TOLERANCE);
@@ -22,10 +22,13 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void setRotate(double speed) {
         armMotor.set(speed);
+
+        TalonFXConfiguration config = new TalonFXConfiguration();
+        armMotor.configAllSettings(config);
     }
 
     public double rotatePID(double PIDTarget) {
-        double pidOutput = armPidController.calculate(armEncoder.getPosition(), PIDTarget);
+        double pidOutput = armPidController.calculate(armMotor.getSelectedSensorPosition(), PIDTarget);
         return MathUtil.clamp(pidOutput, -0.5, 0.5);
     }
 
@@ -34,18 +37,17 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public double getRotationEncoder() {
-        return armEncoder.getPosition();
+        return armMotor.getSelectedSensorPosition();
     }
 
     public void resetRotationEncoder() {
-        armEncoder.setPosition(0.0);
+        return armMotor.setSelectedSensorPosition(0.0);
     }
 
     public void periodic() {
         SmartDashboard.putNumber("Rotation Encoder", getRotationEncoder());
         SmartDashboard.putNumber("Current Rotation Speed", getRotation());
         SmartDashboard.putData("Encoder PID Data", armPidController);
-        SmartDashboard.putNumber("Sim Rotation Encoder", armEncoder.getPosition());
         // logOutputs();
     }
 
