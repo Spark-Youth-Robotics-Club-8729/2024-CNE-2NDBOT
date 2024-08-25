@@ -23,6 +23,15 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.PathPlannerLogging;
+
 
 
 /**
@@ -44,10 +53,22 @@ public class RobotContainer {
   // The operator's controller
   CommandXboxController operatorController = new CommandXboxController(ControllerConstants.OPERATOR_CONTROLLER_PORT);
 
+  //loading paths
+  private final SendableChooser<Command> autoChooser;
+  PathPlannerPath testPath = PathPlannerPath.fromPathFile("testPath");
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // Build an auto chooser. This will use Commands.none() as the default option.
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    // Another option that allows you to specify the default auto by its name
+    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
     //Configure the trigger bindings
     configureBindings();
 
@@ -68,6 +89,10 @@ public class RobotContainer {
     operatorController.y().whileTrue(new ArmSetRotation(armSubsystem, 95.0));
     operatorController.a().whileTrue(new ArmSetRotation(armSubsystem, 0.0));
 
+  }
+
+  public Command getAutonomousCommand() {
+    return autoChooser.getSelected();
   }
 
 }
