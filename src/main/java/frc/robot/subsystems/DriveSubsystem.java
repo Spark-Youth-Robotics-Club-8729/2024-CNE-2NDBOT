@@ -26,19 +26,19 @@ public class DriveSubsystem extends SubsystemBase{
         DriveConstants.TURN_KD);
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
-    private final Encoder encoderLeftDrive = new Encoder(DriveConstants.LEFT_ENCODER_A, DriveConstants.LEFT_ENCODER_B);
-    private final Encoder encoderRightDrive = new Encoder(DriveConstants.RIGHT_ENCODER_A, DriveConstants.RIGHT_ENCODER_B);
+    //private final Encoder encoderLeftDrive = new Encoder(DriveConstants.LEFT_ENCODER_A, DriveConstants.LEFT_ENCODER_B);
+    //private final Encoder encoderRightDrive = new Encoder(DriveConstants.RIGHT_ENCODER_A, DriveConstants.RIGHT_ENCODER_B);
     private final Field2d field = new Field2d();
-    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(gyro.getRotation2d(),
-        encoderLeftDrive.getDistance(), encoderRightDrive.getDistance());
+    //DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(gyro.getRotation2d(),
+        //encoderLeftDrive.getDistance(), encoderRightDrive.getDistance());
 
     Pose2d pose;
 
     SlewRateLimiter filter = new SlewRateLimiter(3.8);
 
-    public double getEncoderDrivePosition() {
-        return (encoderLeftDrive.getDistance());
-    }
+    //public double getEncoderDrivePosition() {
+    //    return (encoderLeftDrive.getDistance());
+    //}
 
     public double getGyroYaw() {
         return (gyro.getYaw());
@@ -86,11 +86,11 @@ public class DriveSubsystem extends SubsystemBase{
         driveRobot.arcadeDrive(filter.calculate(forwardSpeed), turnSpeed);
     }
 
-    @Override
-    public void periodic() {
+    //@Override
+    //public void periodic() {
         // Update odometry and field visualization
-        pose = odometry.update(gyro.getRotation2d(), encoderLeftDrive.getDistance(), encoderRightDrive.getDistance());
-        field.setRobotPose(pose);
-    }
+        //pose = odometry.update(gyro.getRotation2d(), encoderLeftDrive.getDistance(), encoderRightDrive.getDistance());
+        //field.setRobotPose(pose);
+    //}
 
 }

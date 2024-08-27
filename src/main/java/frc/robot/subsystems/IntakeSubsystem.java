@@ -11,7 +11,7 @@ public class IntakeSubsystem extends SubsystemBase{
     CANSparkMax IntakeSpinMotor;
 
     public IntakeSubsystem() {
-        IntakeSpinMotor = new CANSparkMax(IntakeConstants.INTAKESPINMOTORCANID, MotorType.kBrushed);
+        IntakeSpinMotor = new CANSparkMax(IntakeConstants.INTAKE_SPIN_MOTOR_CAN_ID, MotorType.kBrushed);
         IntakeSpinMotor.setInverted(true);
     }
 

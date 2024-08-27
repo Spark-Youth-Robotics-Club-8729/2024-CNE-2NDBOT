@@ -27,14 +27,14 @@ public final class Constants {
   public static class DriveConstants {
     //ports
     public static final int DRIVE_FRONT_LEFT = 2;
-    public static final int DRIVE_FRONT_RIGHT = 4;
     public static final int DRIVE_BACK_LEFT = 3;
+    public static final int DRIVE_FRONT_RIGHT = 4;
     public static final int DRIVE_BACK_RIGHT = 5;
     //values
-    public static final int LEFT_ENCODER_A = 0;
-    public static final int LEFT_ENCODER_B = 1;
-    public static final int RIGHT_ENCODER_A = 2;
-    public static final int RIGHT_ENCODER_B = 3;
+    //public static final int LEFT_ENCODER_A = 0;
+    //public static final int LEFT_ENCODER_B = 1;
+    //public static final int RIGHT_ENCODER_A = 2;
+    //public static final int RIGHT_ENCODER_B = 3;
     public static final int DRIVE_AXIS = 1;
     public static final int TURN_AXIS = 4;
     public static final double TURN_PROPORTION = 0.7;
@@ -57,8 +57,8 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    public static final int INTAKESPINMOTORCANID = 11; 
-    public static final double INTAKESPINMOTORSPEED = 0.1;
+    public static final int INTAKE_SPIN_MOTOR_CAN_ID = 1; 
+    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.1;
   }
 
 }
