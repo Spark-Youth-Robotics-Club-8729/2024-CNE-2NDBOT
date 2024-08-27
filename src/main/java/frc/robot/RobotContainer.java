@@ -54,8 +54,8 @@ public class RobotContainer {
     // Configure default commands
     driveSubsystem.setDefaultCommand(
             new ArcadeDriveCommand(driveSubsystem,
-                            () -> -driverController.getRawAxis(DriveConstants.DRIVE_AXIS),
-                            (() -> -driverController.getRawAxis(DriveConstants.TURN_AXIS)
+                            () -> driverController.getRawAxis(DriveConstants.DRIVE_AXIS),
+                            (() -> driverController.getRawAxis(DriveConstants.TURN_AXIS)
                                             * DriveConstants.TURN_PROPORTION)));
 
   }
