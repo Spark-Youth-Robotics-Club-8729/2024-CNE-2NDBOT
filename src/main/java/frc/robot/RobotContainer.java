@@ -43,6 +43,7 @@ public class RobotContainer {
   
   // The operator's controller
   CommandXboxController operatorController = new CommandXboxController(ControllerConstants.OPERATOR_CONTROLLER_PORT);
+  //Joystick operatorController = new Joystick(ControllerConstants.OPERATOR_CONTROLLER_PORT);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -61,12 +62,21 @@ public class RobotContainer {
   }
 
   public void configureBindings() {
+    //if (operatorController.getRawButton(3)) {
+    //  new IntakeSetSpin(intakeSubsystem, 0.2);
+    //}
 
+    operatorController.y().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.2));
+    operatorController.b().whileTrue(new ArmSetRotation(armSubsystem, 20.0));
+
+    
+    /* 
     operatorController.b().whileTrue(new IntakeSetSpin(intakeSubsystem, -0.9));
     operatorController.x().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.8));
     operatorController.rightTrigger().whileTrue(new IntakeSetSpin(intakeSubsystem, -0.613));
     operatorController.y().whileTrue(new ArmSetRotation(armSubsystem, 95.0));
     operatorController.a().whileTrue(new ArmSetRotation(armSubsystem, 0.0));
+    */
 
   }
 
