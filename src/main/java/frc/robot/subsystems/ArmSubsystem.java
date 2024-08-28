@@ -7,9 +7,9 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-// import com.ctre.phoenix6.hardware.TalonFX;
+//import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+//import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
 // import com.ctre.phoenix6.configs.TalonFXConfiguration;
 // import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.revrobotics.RelativeEncoder;
@@ -20,23 +20,26 @@ public class ArmSubsystem extends SubsystemBase {
 
     public ArmSubsystem() {
         armPidController.setTolerance(ArmConstants.ARM_DEGREE_TOLERANCE);
+        resetRotationEncoder();
     }
 
     public void setRotate(double speed) {
-        armMotor.set(TalonFXControlMode.PercentOutput, speed);
-    }
-
-    public double rotatePID(double PIDTarget) {
-        double pidOutput = armPidController.calculate(armMotor.getSelectedSensorPosition(), PIDTarget);
-        return MathUtil.clamp(pidOutput, -0.5, 0.5);
+        //armMotor.set(TalonFXControlMode.PercentOutput, speed);
+        armMotor.set(speed);
     }
 
     public double getRotationEncoder() {
-        return armMotor.getSelectedSensorPosition();
+        double currentValue = armMotor.getPosition().getValue();
+        return currentValue;
+    }
+
+    public double rotatePID(double PIDTarget) {
+        double pidOutput = armPidController.calculate(getRotationEncoder(), PIDTarget);
+        return MathUtil.clamp(pidOutput, -0.5, 0.5);
     }
 
     public void resetRotationEncoder() {
-        armMotor.setSelectedSensorPosition(0.0);
+        armMotor.setPosition(0.0);
     }
 
     public void periodic() {

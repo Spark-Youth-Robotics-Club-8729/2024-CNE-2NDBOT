@@ -49,7 +49,7 @@ public final class Constants {
 
   public static class ArmConstants {
     public static final int ARM_MOTOR = 6;
-    public static final double ARM_KP = 0.05;
+    public static final double ARM_KP = 0.01;
     public static final double ARM_KI = 0.0;
     public static final double ARM_KD = 0.0;
     public static final double ARM_DEGREE_TOLERANCE = 1.0;
@@ -58,7 +58,7 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final int INTAKE_SPIN_MOTOR_CAN_ID = 1; 
-    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.1;
+    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.4;
   }
 
 }

@@ -67,7 +67,9 @@ public class RobotContainer {
     //}
 
     operatorController.y().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.2));
-    operatorController.b().whileTrue(new ArmSetRotation(armSubsystem, 20.0));
+    operatorController.b().onTrue(new ArmSetRotation(armSubsystem, 95.0));
+    operatorController.x().onTrue(new ArmSetRotation(armSubsystem, 6.0));
+
 
     
     /* 

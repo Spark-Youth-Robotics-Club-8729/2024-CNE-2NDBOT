@@ -12,7 +12,6 @@ public class IntakeSubsystem extends SubsystemBase{
 
     public IntakeSubsystem() {
         IntakeSpinMotor = new CANSparkMax(IntakeConstants.INTAKE_SPIN_MOTOR_CAN_ID, MotorType.kBrushless);
-        IntakeSpinMotor.setInverted(true);
     }
 
     public void setSpin(double speed) {
