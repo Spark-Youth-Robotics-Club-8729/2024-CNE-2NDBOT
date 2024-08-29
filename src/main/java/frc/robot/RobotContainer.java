@@ -13,14 +13,18 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.IntakeSetSpin;
+import frc.robot.commands.OneAmpAutoRed;
+import frc.robot.commands.RaiseAndOuttake;
+import frc.robot.commands.Turn90Degrees;
 import frc.robot.commands.ArmSetRotation;
 import frc.robot.commands.ArmResetRotation;
+import frc.robot.commands.ArmStall;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.Joystick; //update xbox, ps4 in testing!
+import edu.wpi.first.wpilibj.Joystick; 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -63,9 +67,15 @@ public class RobotContainer {
   }
 
   public void configureBindings() {
-    operatorController.y().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.2));
-    operatorController.b().onTrue(new ArmSetRotation(armSubsystem, 95));
-    operatorController.x().onTrue(new ArmResetRotation(armSubsystem, 6.5, ArmConstants.INTAKE_SPIN_MOTOR_SPEED));
+    operatorController.y().whileTrue(new IntakeSetSpin(intakeSubsystem, IntakeConstants.INTAKE_SPIN_MOTOR_SPEED));
+    operatorController.x().whileTrue(new IntakeSetSpin(intakeSubsystem, -IntakeConstants.INTAKE_SPIN_MOTOR_SPEED));
+    operatorController.b().onTrue(new ArmSetRotation(armSubsystem, ArmConstants.ARM_UP_SETPOINT));
+    operatorController.a().onTrue(new ArmResetRotation(armSubsystem, ArmConstants.ARM_DOWN_SETPOINT, ArmConstants.ARM_STALL_SPEED));
+    //operatorController.leftBumper().onTrue(new Turn90Degrees(driveSubsystem, true, DriveConstants.AUTO_TURN_TIME));
+    //operatorController.rightBumper().onTrue(new Turn90Degrees(driveSubsystem, false, DriveConstants.AUTO_TURN_TIME));
+    operatorController.leftBumper().onTrue(new RaiseAndOuttake(intakeSubsystem, armSubsystem));
+    //operatorController.rightBumper().onTrue(new ArmStall(armSubsystem, ArmConstants.ARM_STALL_SPEED_TWO, ArmConstants.ARM_RAISE_SPEED));
+    operatorController.rightBumper().onTrue(new OneAmpAutoRed(driveSubsystem, armSubsystem, intakeSubsystem));
   }
 
 }

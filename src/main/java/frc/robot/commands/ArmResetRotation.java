@@ -25,7 +25,7 @@ public class ArmResetRotation extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double pidoutput = m_armsubsystem.rotatePID(m_pidtargetpoint);
+        double pidoutput = m_armsubsystem.rotateDownPID(m_pidtargetpoint);
         m_armsubsystem.setRotate(pidoutput);
     }
 

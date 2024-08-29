@@ -90,6 +90,11 @@ public class DriveSubsystem extends SubsystemBase{
         driveRobot.arcadeDrive(filter.calculate(forwardSpeed), turnSpeed);
     }
 
+    public void setTurnMotor(double speed) {
+        driveFrontRight.set(speed);
+        driveFrontLeft.set(-speed);
+    }
+
     //@Override
     //public void periodic() {
         // Update odometry and field visualization

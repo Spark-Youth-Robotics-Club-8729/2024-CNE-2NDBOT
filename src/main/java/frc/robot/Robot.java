@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     CommandScheduler.getInstance().run();
-    armSubsystem.resetRotationEncoder();
+    //armSubsystem.resetRotationEncoder();
   }
 
   /** This function is called periodically during operator control. */

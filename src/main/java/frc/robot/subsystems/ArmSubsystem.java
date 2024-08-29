@@ -17,9 +17,12 @@ import com.revrobotics.RelativeEncoder;
 public class ArmSubsystem extends SubsystemBase {
     private final TalonFX armMotor = new TalonFX(ArmConstants.ARM_MOTOR);
     private final PIDController armPidController = new PIDController(ArmConstants.ARM_KP, ArmConstants.ARM_KI, ArmConstants.ARM_KD);
+    private final PIDController armDownPidController = new PIDController(ArmConstants.ARM_DOWN_KP, ArmConstants.ARM_DOWN_KI, ArmConstants.ARM_DOWN_KD);
+
 
     public ArmSubsystem() {
         armPidController.setTolerance(ArmConstants.ARM_DEGREE_TOLERANCE);
+        armDownPidController.setTolerance(ArmConstants.ARM_DEGREE_TOLERANCE);
         resetRotationEncoder();
     }
 
@@ -38,6 +41,12 @@ public class ArmSubsystem extends SubsystemBase {
         return MathUtil.clamp(pidOutput, -0.5, 0.5);
     }
 
+    public double rotateDownPID(double PIDTarget) {
+        double pidOutput = armDownPidController.calculate(getRotationEncoder(), PIDTarget);
+        return MathUtil.clamp(pidOutput, -0.5, 0.5);
+    }
+
+
     public void resetRotationEncoder() {
         armMotor.setPosition(0.0);
     }
@@ -45,6 +54,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Rotation Encoder", getRotationEncoder());
         SmartDashboard.putData("Encoder PID Data", armPidController);
+        SmartDashboard.putData("Encoder PID Down Data", armDownPidController);
         // logOutputs();
     }
 

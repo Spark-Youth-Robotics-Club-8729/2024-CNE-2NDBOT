@@ -44,6 +44,9 @@ public final class Constants {
     public static final double TURN_KD = 0.0;
     public static final int TURN_CONTROLLER_POSITION_TOLERANCE = 1;
     public static final int TURN_CONTROLLER_VELOCITY_TOLERANCE = 10;
+
+    public static final double AUTO_TURN_TIME = 0.5;
+    public static final double AUTO_TURN_SPEED = 0.61;
   }
 
   public static class ArmConstants {
@@ -51,16 +54,27 @@ public final class Constants {
     public static final double ARM_KP = 0.01;
     public static final double ARM_KI = 0.0;
     public static final double ARM_KD = 0.0;
-    public static final double ARM_DEGREE_TOLERANCE = 1.0;
+    public static final double ARM_DOWN_KP = 0.01;
+    public static final double ARM_DOWN_KI = 0.0;
+    public static final double ARM_DOWN_KD = 0.0;
 
-    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.3;
+    public static final double ARM_DEGREE_TOLERANCE = 2.0;
 
+    public static final double ARM_STALL_SPEED = 0.0205;
+
+    public static final double ARM_RAISE_TIME = 0.5;
+    public static final double ARM_STALL_SPEED_TWO = 0.0205;
+    public static final double ARM_RAISE_SPEED = 0.1;
+
+    public static final double ARM_DOWN_SETPOINT = 4.1;
+    public static final double ARM_UP_SETPOINT = 100.7;
 
   }
 
   public static final class IntakeConstants {
-    public static final double INTAKE_STALL_SPEED = 0.0205;
     public static final int INTAKE_SPIN_MOTOR_CAN_ID = 1; 
+    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.8;
+
   }
 
 }
