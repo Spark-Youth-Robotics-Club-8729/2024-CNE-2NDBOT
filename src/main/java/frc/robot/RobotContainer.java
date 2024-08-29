@@ -4,15 +4,17 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.IntakeSetSpin;
 import frc.robot.commands.ArmSetRotation;
-
+import frc.robot.commands.ArmResetRotation;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -43,7 +45,6 @@ public class RobotContainer {
   
   // The operator's controller
   CommandXboxController operatorController = new CommandXboxController(ControllerConstants.OPERATOR_CONTROLLER_PORT);
-  //Joystick operatorController = new Joystick(ControllerConstants.OPERATOR_CONTROLLER_PORT);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -62,24 +63,9 @@ public class RobotContainer {
   }
 
   public void configureBindings() {
-    //if (operatorController.getRawButton(3)) {
-    //  new IntakeSetSpin(intakeSubsystem, 0.2);
-    //}
-
     operatorController.y().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.2));
-    operatorController.b().onTrue(new ArmSetRotation(armSubsystem, 95.0));
-    operatorController.x().onTrue(new ArmSetRotation(armSubsystem, 6.0));
-
-
-    
-    /* 
-    operatorController.b().whileTrue(new IntakeSetSpin(intakeSubsystem, -0.9));
-    operatorController.x().whileTrue(new IntakeSetSpin(intakeSubsystem, 0.8));
-    operatorController.rightTrigger().whileTrue(new IntakeSetSpin(intakeSubsystem, -0.613));
-    operatorController.y().whileTrue(new ArmSetRotation(armSubsystem, 95.0));
-    operatorController.a().whileTrue(new ArmSetRotation(armSubsystem, 0.0));
-    */
-
+    operatorController.b().onTrue(new ArmSetRotation(armSubsystem, 95));
+    operatorController.x().onTrue(new ArmResetRotation(armSubsystem, 6.5, ArmConstants.INTAKE_SPIN_MOTOR_SPEED));
   }
 
 }

@@ -23,7 +23,6 @@ public final class Constants {
 
     public static final double DriveDeadband = 0.05;
   }
-
   public static class DriveConstants {
     //ports
     public static final int DRIVE_FRONT_LEFT = 2;
@@ -54,11 +53,14 @@ public final class Constants {
     public static final double ARM_KD = 0.0;
     public static final double ARM_DEGREE_TOLERANCE = 1.0;
 
+    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.3;
+
+
   }
 
   public static final class IntakeConstants {
+    public static final double INTAKE_STALL_SPEED = 0.0205;
     public static final int INTAKE_SPIN_MOTOR_CAN_ID = 1; 
-    public static final double INTAKE_SPIN_MOTOR_SPEED = 0.4;
   }
 
 }
